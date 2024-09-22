@@ -3,14 +3,13 @@ using namespace std;
 
 class Counter {
 private:
-    int count;          // Tracks the current count
-    int incrementStep;  // Stores the increment step value
+    int count;          
+    int incrementStep;  
 
 public:
-    // Constructor to initialize the count to 0
     Counter() {
         count = 0;
-        incrementStep = 1;  // Default increment step
+        incrementStep = 1;  
     }
 
     // Function to set the increment step
