@@ -13,19 +13,17 @@ private:
     const float interestRate;
 
 public:
+    // Default constructor
+    BankAccount() : accountNumber(0), accountHolderName("Default"), accountType("Default"), balance(0.0F), interestRate(3.0F) {}
 
-    BankAccount () : accountNumber(0), accountHolderName("Default"), accountType("Default"), balance(0), interestRate(3.0)}
-    BankAccount(int accountNumber, string accountHolderName, string accountType , float balance,int totalAccounts,float totalSourceTax, const float interestRate)
+    // Parameterized constructor
+    BankAccount(int accountNumber, string accountHolderName, string accountType, float balance)
+        : accountNumber(accountNumber), accountHolderName(accountHolderName), accountType(accountType), balance(balance), interestRate(3.0F)
     {
-        this->accountNumber = accountNumber;
-        this->accountHolderName = accountHolderName;
-        this->accountType = accountType;
-        this->balance = balance;
-        this->totalAccounts = totalAccounts;
-        this->totalSourceTax = totalAccounts;
         totalAccounts++;
     }
 
+    // Show all account information
     void showAllinfo()
     {
         cout << "Account Number: " << accountNumber << endl;
@@ -34,14 +32,16 @@ public:
         cout << "Current Balance: " << balance << endl;
     }
 
+    // Show balance
     void showBalance()
     {
         cout << "Current Balance: " << balance << endl;
     }
 
+    // Deposit amount
     void deposit(float amount)
     {
-        if(amount > 0)
+        if (amount > 0)
         {
             balance += amount;
         }
@@ -51,9 +51,10 @@ public:
         }
     }
 
+    // Withdraw amount
     void withdrawal(float amount)
     {
-        if(amount > 0 && balance - amount >= 0)
+        if (amount > 0 && balance - amount >= 0)
         {
             balance -= amount;
         }
@@ -63,36 +64,44 @@ public:
         }
     }
 
+    // Calculate total interest and update balance
     void Total_interest()
     {
-        float interest = (balance*interestRate)/100;
+        float interest = (balance * interestRate) / 100;
         float sourceTax = (interest * 10) / 100;
         balance += interest - sourceTax;
         totalSourceTax += sourceTax;
     }
 
+    // Static function to get total accounts
     static int getTotalAccounts()
     {
         return totalAccounts;
-    };
+    }
 
+    // Static function to get total source tax
     static float getTotalSourceTax()
     {
         return totalSourceTax;
     }
 
+    // Destructor
     ~BankAccount()
     {
         totalAccounts--;
-        cout << "Account of Mr. " << accountHolderName << " with account no " << accountNumber << " is destroyed with a balance BDT " << balance << endl;
+        cout << "Account of Mr./Ms. " << accountHolderName << " with account no. " << accountNumber << " is destroyed with a balance of BDT " << balance << endl;
     }
-
 };
 
+// Static member initialization
+int BankAccount::totalAccounts = 0;
+float BankAccount::totalSourceTax = 0.0F;
+
+// Display statistics
 void display_stat()
 {
-    cout << "Total number of accounts: " << BankAccount::totalAccounts() << endl;
-    cout << "Total source tax collected: BDT " << BankAccount::totalSourceTax() << endl;
+    cout << "Total number of accounts: " << BankAccount::getTotalAccounts() << endl;
+    cout << "Total source tax collected: BDT " << BankAccount::getTotalSourceTax() << endl;
 }
 
 int main()
@@ -118,7 +127,3 @@ int main()
 
     return 0;
 }
-
-
-
-
